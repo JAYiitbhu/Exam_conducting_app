@@ -1,0 +1,59 @@
+{%load static %}
+{% load crispy_forms_filters %}
+{%load crispy_forms_tags%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login to Equizzy</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <!-- https://fonts.google.com/specimen/Open+Sans -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- https://fontawesome.com/ -->
+    <link href="{%static 'proj1/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="{%static 'proj1/main.css'%}">
+</head>
+
+<body >
+    
+    <div class="container">
+        <div class="row tm-mt-big ">
+            <div class="col-1"></div>
+            <div class="col-5">
+                <img src="{%static 'proj1/images/thinking.png'%}" width="639.4" height="536.3">
+            </div>
+            <div class="col-4 mx-auto tm-login-col">
+                <div class="bg-white tm-block">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h2>Login</h2>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <form action="#" method="post" class="tm-login-form">
+                                <div class="d-flex align-items-center flex-column" >
+                                    {% csrf_token %}
+                                    {{form|crispy}}
+                                </div>
+                                <div class="input-group mt-3">
+                                    <button type="submit" class="btn btn-primary d-inline-block mx-auto">Login</button>
+                                </div>
+                            </form>
+                            <p class="h6 mt-4 d-flex justify-content-center">don't have an account?&nbsp;<a href="/users/signin">Register</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        
+    </div>
+</body>
+
+</html>

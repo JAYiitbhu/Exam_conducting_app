@@ -1,0 +1,93 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" cont ent="width=device-width, initial-scale=1.0">
+    <title>Welcome, {{user.username}}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <!-- https://fonts.google.com/specimen/Open+Sans -->
+    
+    <link rel="stylesheet" href="{%static 'proj1/fullcalendar.min.css'%}">
+    <!-- https://fullcalendar.io/ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{%static 'proj1/templatemo-grad-school.css'%}">   
+</head>
+<body class="bgclass">
+   
+            <header class="main-header clearfix" role="header">
+        
+        
+                <div class="logo">
+                    <a href="#"><em>e</em>QUIZZY</a>
+                </div>
+                
+                
+                <nav id="menu" class="main-nav" role="navigation">
+                    
+                  <ul class="main-menu">
+                    <li>
+                       
+                        <a href="#" class="p-3">
+                            <i class="fa-solid fa-user fa-2xl" style="color: #ffffff;"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <form action="/users/logout/" method="post"  style="width:157px;margin-right:5px;font-size:10px;" >
+                            {% csrf_token %}
+                                <button href="#" class="btn text-white btn-outline-danger btn-lg" style="border-width:0px;">
+                                    <i class="fa-solid fa-lock fa-lg" style="color: #ffffff;"></i> Log out
+                               </button>
+
+                            
+                        </form>
+                
+                        
+                    </li>
+                  </ul>
+                </nav>
+              </header>
+    <div class="container"style="padding-top:5rem;" >
+        <div class="row tm-mt-big"  >
+            <div class="col-3"></div>
+            <div class="col-6" >
+                <div class="tm-col tm-col-small " >
+                    <div class="bg-white tm-block ">
+                        
+                            <div class="row">
+                                <div class="col-12 my-3 d-flex justify-content-center" style="max-width:800px;">
+                                    <form action="/quiz/{{quiz.id}}/add_question/{{number}}" class="form-group" method="post">
+                                        {%csrf_token%}
+                                        <h3>Question {{number}}</h3>
+                                        <textarea class="form-control my-2"name="question" style="width:500px;" row="2" placeholder="Question"></textarea>
+                                        
+                                        
+                                        <textarea class="form-control my-2"name="choice-1" style="width:400px;height:20px;" row="1" placeholder="option 1"></textarea>
+                                        <textarea class="form-control my-2"name="choice-2" style="width:400px;height:20px;" row="1" placeholder="option 2"></textarea>
+                                        <textarea class="form-control my-2"name="choice-3" style="width:400px;height:20px;" row="1" placeholder="option 3"></textarea>
+                                        <input class="form-control my-2" name="ans" style="width:100px" type="number" min="1" max="3">
+                                        
+                                        <button class="btn btn-primary "type="submit" >Add question</button>
+                                        
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                            
+                                <div class="row"><div class="col-4 my-1 d-flex justify-content-center"><a href="{%url 'add_exam'%}"><button class="btn btn-outline-warning">End</button></a></div></div>
+                                
+                        </div>
+                          
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    
+</body>
+</html>

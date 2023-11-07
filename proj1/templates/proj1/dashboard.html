@@ -1,0 +1,242 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" cont ent="width=device-width, initial-scale=1.0">
+    <title>Welcome, {{user.username}}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <!-- https://fonts.google.com/specimen/Open+Sans -->
+    
+    <link rel="stylesheet" href="{%static 'proj1/fullcalendar.min.css'%}">
+    <!-- https://fullcalendar.io/ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{%static 'proj1/main.css'%}">   
+</head>
+<body >
+    <div class="container">
+        <div class="row">
+            <header class="main-header clearfix" role="header">
+        
+        
+                <div class="logo">
+                    <div class="a1"><i class="fa-solid fa-list fa-2xl" style="color: #f5a425;" href="#sidebar" data-bs-toggle="offcanvas" role="button" aria-controls="sidebar"></i></div>
+                    <div class="a2"><a href="#"><em>e</em>QUIZZY</a></div>
+                </div>
+                
+                
+                <nav id="menu" class="main-nav" role="navigation">
+                    
+                  <ul class="main-menu pe-1">
+                    <li>
+                        
+                        <a href="#" class="p-3">
+                            <i class="fa-solid fa-user fa-2xl" style="color: #ffffff;"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li>
+                        <form action="/users/logout/" method="post"  style="width:157px;margin-right:5px;font-size:10px;" >
+                            {% csrf_token %}
+                                <button href="#" class="btn text-white btn-outline-danger btn-lg" style="border-width:0px;">
+                                    <i class="fa-solid fa-lock fa-lg" style="color: #ffffff;"></i> Log out
+                               </button>
+
+                            
+                        </form>
+                        
+                    </li>
+                  </ul>
+                </nav>
+              </header>
+              
+                  <div class="offcanvas offcanvas-start bg-dark "style="width: 280px;" tabindex="-1" id="sidebar" aria-labelledby="sidebar-label">
+                   
+                    <div class="offcanvas-body mt-5">
+                        <ul class="d-flex flex-column" style="list-style-type:none;">
+                            <li class="d-flex align-items-center h4 my-4">
+                                
+                                <a class="  text-white text-decoration-none" href="#" >
+                                    <i class="fa-solid fa-gauge" style="color: #ffffff;"></i>
+                                    <span class="ps-2">Dashboard</span>
+                                </a>
+                            </li>
+                            
+                            <li class=" d-flex align-items-center  h4 dropdown my-4">
+                                
+                                 <a   class=" text-white text-decoration-none" href="#"  role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <i class="fa-solid fa-address-book" style="color: #f0f0f0;"></i>
+                                        <span class="ps-2">Reports</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark " >
+                                    <li><a class="dropdown-item" href="#">Daily Report</a></li>
+                                    <li><a class="dropdown-item" href="#">Weekly Report</a></li>
+                                    <li><a class="dropdown-item" href="#">Yearly Report</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li class="dropdown-item"><a class=" text-white text-decoration-none" href="/proj1/report/">Main Report</a></li>
+                                </ul>
+                            </li>
+                            
+                            
+                            <li class="d-flex align-items-center h4 my-4">
+                                
+                                <a href="/proj1/exam" class="  text-white text-decoration-none">
+                                    <i class="fa-regular fa-pen-to-square" style="color: #ffffff;"></i>
+                                    <span class="ps-2">Exams</span>
+                                  </a>
+                            </li>
+        
+                            <li class="d-flex align-items-center  h4 mt-4">
+                                <a   class=" text-white text-decoration-none" href="#peoplecollapse"  role="button" data-bs-toggle="collapse" aria-haspopup="true"
+                                aria-expanded="false" aria-controls="peoplecollapse">
+                                <i class="fa-solid fa-users" style="color: #ffffff;"></i>
+                                    <span class="ps-1">People</span>
+                                </a>
+                                
+                                
+                                
+                            </li>
+                            <li >
+                                <div id="peoplecollapse" class="collapse ">
+                                    <div class="card card-body bg-dark " >
+                                        <form method="post" class="form-group">
+                                            <input placeholder="username" type="text" id="search" class="form-control"style="height:30px;"  >
+                                            <button type="submit" class="btn btn-secondary btn-sm" style="padding:2px 15px;">search</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                  </div>
+        </div>
+        <div class="row" style="margin-top:10px;margin-left:20px;">
+            <div class="row tm-content-row tm-mt-big">
+                <div class="tm-col tm-col-big">
+                    <div class="bg-white tm-block h-100">
+                        <h2 class="tm-block-title">Latest Hits</h2>
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+                <div class="tm-col tm-col-big">
+                    <div class="bg-white tm-block h-100">
+                        <h2 class="tm-block-title">Performance</h2>
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+                <div class="tm-col tm-col-small">
+                    <div class="bg-white tm-block h-100">
+                        <canvas id="pieChart" class="chartjs-render-monitor"></canvas>
+                    </div>
+                </div>
+    
+                <div class="tm-col tm-col-big">
+                    <div class="bg-white tm-block h-100">
+                        <div class="row">
+                            <div class="col-8">
+                                <h2 class="tm-block-title d-inline-block">Attempted Exams</h2>
+    
+                            </div>
+                            <div class="col-4 text-right">
+                                <a href="#" class="tm-link-black">View All</a>
+                            </div>
+                        </div>
+                        <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
+                            {%for exam in attempt_exam %}
+                                <li>
+                                   {{exam.Exam_name}}
+                                   <br>
+                                    <small= class="ms-5 mt-0">by {{exam.tid.Name}}</small>
+                                </li>
+                                {%endfor%}
+                        </ol>
+                    </div>
+                </div>
+                <div class="tm-col tm-col-big">
+                    <div class="bg-white tm-block h-100">
+                        <h2 class="tm-block-title">Calendar</h2>
+                        <div id="calendar"></div>
+                        <div class="row mt-4">
+                            <div class="col-12 text-right">
+                                <a href="#" class="tm-link-black">View Schedules</a>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+                <div class="tm-col tm-col-small">
+                    <div class="bg-white tm-block h-100">
+                        <h2 class="tm-block-title">Upcoming Tasks</h2>
+                        <ol class="tm-list-group">
+                            <li class="tm-list-group-item">List of tasks</li>
+                            <li class="tm-list-group-item">Lorem ipsum doloe</li>
+                            <li class="tm-list-group-item">Read reports</li>
+                            <li class="tm-list-group-item">Write email</li>
+                            
+                            <li class="tm-list-group-item">Call customers</li>
+                            <li class="tm-list-group-item">Go to meeting</li>
+                            <li class="tm-list-group-item">Weekly plan</li>
+                            <li class="tm-list-group-item">Ask for feedback</li>
+                            
+                            <li class="tm-list-group-item">Meet Supervisor</li>
+                            <li class="tm-list-group-item">Company trip</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+        </div>
+    </div>
+    
+          
+<script src="{%static 'proj1/jquery.min.js'%}"></script>
+<!-- https://jquery.com/download/ -->
+<script src="{%static 'proj1/moment.min.js'%}"></script>
+<!-- https://momentjs.com/ -->
+<script src="{%static 'proj1/utils.js'%}"></script>
+<script src="{%static 'proj1/Chart.min.js'%}"></script>
+<!-- http://www.chartjs.org/docs/latest/ -->
+<script src="{%static 'proj1/fullcalendar.min.js'%}"></script>
+<!-- https://fullcalendar.io/ -->
+<script src="{%static 'proj1/bootstrap.min.js'%}"></script>
+<!-- https://getbootstrap.com/ -->
+<script src="{%static 'proj1/tooplate-scripts.js'%}"></script>
+<script>
+    let ctxLine,
+        ctxBar,
+        ctxPie,
+        optionsLine,
+        optionsBar,
+        optionsPie,
+        configLine,
+        configBar,
+        configPie,
+        lineChart;
+    barChart, pieChart;
+    // DOM is ready
+    $(function () {
+        updateChartOptions();
+        drawLineChart(); // Line Chart
+        drawBarChart(); // Bar Chart
+        drawPieChart(); // Pie Chart
+        drawCalendar(); // Calendar
+
+        $(window).resize(function () {
+            updateChartOptions();
+            updateLineChart();
+            updateBarChart();
+            reloadPage();
+        });
+    })
+</script>
+        
+        
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+   
+</body>
+</html>

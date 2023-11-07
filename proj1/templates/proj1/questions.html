@@ -1,0 +1,75 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" cont ent="width=device-width, initial-scale=1.0">
+    <title>Welcome, {{user.username}}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <!-- https://fonts.google.com/specimen/Open+Sans -->
+    
+    <link rel="stylesheet" href="{%static 'proj1/fullcalendar.min.css'%}">
+    <!-- https://fullcalendar.io/ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{%static 'proj1/templatemo-grad-school.css'%}">   
+</head>
+<body class="bgclass">
+   
+            <header class="main-header clearfix" role="header">
+        
+        
+                <div class="logo">
+                    <a href="#"><em>e</em>QUIZZY</a>
+                </div>
+                
+                
+                <nav id="menu" class="main-nav" role="navigation">
+                    
+                  <ul class="main-menu">
+                    <li>
+                        <form action="#" method="post"  style="width:157px;margin-right:5px;font-size:10px;" >
+                            {% csrf_token %}
+                                <button href="#" class="btn text-white btn-outline-danger btn-lg" style="border-width:0px;">
+                                    <i class="fa-solid fa-lock fa-lg pe-2" style="color: #ffffff;"></i>End 
+                               </button>
+
+                            
+                        </form>
+                
+                        
+                    </li>
+                  </ul>
+                </nav>
+              </header>
+    <div class="tm-col tm-col-big">
+        <div class="bg-white tm-block h-100">
+              <div class="row" style="margin-top:5rem;">
+                
+
+                
+                    <h2>{{quiz.text}}</h2>
+                    
+                    <form id="quiz-form" action="/quiz/{{quiz.id}}/update_score/" class="form-group" method="post">
+                    {% csrf_token %}
+                    {% for q in ques %}
+                    <div class="question ms-3" id="question-{{ q.question.id }}">
+                        <p class="h3" >{{ forloop.counter }}. {{ q.question.text }}</p>
+                        {% for choice in  q.choices %}
+                       
+                            <label class="form-check ms-5">
+                                <input type="radio" name="{{forloop.parentloop.counter}}" class="form-check-input"  value="{{ choice.id }}"> {{ choice.text }}
+                            </label><br>
+                        {% endfor %}                    
+                    </div>
+                    {% endfor %}
+                    <button id="submit-button" type="submit">Submit</button>
+                    
+                    </form>
+            </div>
+            
+        </div>
+    </div>
+    
+</body>
+</html>

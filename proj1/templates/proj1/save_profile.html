@@ -1,0 +1,72 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Details to Equizzy</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <!-- https://fonts.google.com/specimen/Open+Sans -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- https://fontawesome.com/ -->
+    <link href="{%static 'proj1/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="{%static 'proj1/main.css'%}">
+</head>
+
+<body >
+    
+    <div class="container">
+        <div class="row tm-mt-small">
+            <div class="col-12 mx-auto tm-login-col">
+                <div class="bg-white tm-block">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <i class="fas fa-3x fa-tachometer-alt tm-site-icon text-center"></i>
+                            <h2 class="tm-block-title mt-3">Login</h2>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <form action="#" method="post" class="form-group">
+                                {%csrf_token%}
+                                <label for="address">Address</label>
+                                <textarea id="address" class="form-control"name="address" rows="3" cols="40" >{{address}}</textarea>
+
+                                <label for="country">Country</label>
+                                <input id="country" class="form-control" name="country" value="{{country}}">
+
+                                <label for="stat">Choose the career:</label>
+                                <select id="stat"class="form-select form-select-sm" name="stat" id="stat"  aria-label=".form-select-sm example" >
+                                <option value="teacher">teacher</option>
+                                <option value="student">student</option>
+                                </select>
+                                <div class="input-group mt-3">
+                                    <button type="submit" class="btn btn-primary d-inline-block mx-auto">
+                                        submit
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <script>
+        const s="{{stat}}"; 
+        if(s!=""){
+            const $select = document.querySelector('#stat');
+            const $options = Array.from($select.options);
+            const optionToSelect = $options.find(item => item.text ===s);
+            optionToSelect.selected = true;
+            $select.disabled=true;
+        }
+    </script>
+</body>
+
+</html>
